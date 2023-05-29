@@ -248,12 +248,11 @@ def test_multiclass():
     val_data = gendata(key)
 
     t,phi = get_multiclass_data(*data)
-    #gamma = phi
-    gamma = np.zeros([phi.shape[0],M+1,1])
+    #gamma = np.zeros([phi.shape[0],M+1,1])
+    gamma = phi # any linear feature you would like to add
     t_val,phi_val = get_multiclass_data(*val_data)
-    #gamma_val = phi_val
-    gamma_val = np.zeros([phi_val.shape[0],M+1,1])
-    
+    gamma_val = phi_val
+    #gamma_val = np.zeros([phi_val.shape[0],M+1,1])    
     #D_mean, D_std, D_mean_val, D_std_val = multiclass_diagnostic(t,phi,t_val,phi_val,key,.001)
     D_mean, D_std, D_mean_val, D_std_val = cv(multiclass_diagnostic,[t,phi,gamma],[t_val,phi_val,gamma_val],key)
     print(f"{D_mean=} {D_std=} {D_mean_val=} {D_std_val=}")
